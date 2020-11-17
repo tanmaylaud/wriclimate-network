@@ -39,7 +39,7 @@ def get_eigen_centrality(DG):
     ec = pd.DataFrame.from_dict(ec,orient='index')
     return normalise(ec)
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_simple_cycles(DG, cycle_len = 18 ):
     cycles = []
     for cycle in nx.simple_cycles(DG):
@@ -52,11 +52,11 @@ def get_cores(DG,k=None):
     Core = nx.k_core(DG,k=k)
     return Core
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_min_span_tree(G):
     return nx.minimum_spanning_tree(G)
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_vertex_cover(DG):
     mvc = min_weighted_vertex_cover(DG)
     return pd.DataFrame.from_dict({k: 1 for k in list(mvc)},orient='index')

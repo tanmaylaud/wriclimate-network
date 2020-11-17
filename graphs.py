@@ -1,5 +1,6 @@
 import networkx as nx
 import copy
+import re
 
 class FilterGraph():
   def __init__(self,G):
@@ -21,7 +22,7 @@ class FilterGraph():
     node = self.get_closest_node_to_query(x)
     self.nodes = nx.algorithms.traversal.breadth_first_search.descendants_at_distance(self.G,node,1)
 
-  def filter_nodes_by_number(x):
+  def filter_nodes_by_number(self,x):
     if x==self.sourceNode:
       return True
     if x in self.nodes:
@@ -33,3 +34,18 @@ class FilterGraph():
     self.sourceNode = sourceNode
     self.updateNodes(sourceNode)
     return nx.subgraph_view(self.G,filter_node=self.filter_node)
+  
+  
+class CycleGraph():
+  def __init__(self,cycle):
+    self.cycle = cycle
+    self.G = nx.DiGraph()
+    for node in cycle:
+          self.G.add_node(node)
+    for i in range(len(cycle)-1):
+          self.G.add_edge(cycle[i],cycle[i+1])
+    self.G.add_edge(cycle[-1],cycle[0])
+    
+  def graph(self):
+    return self.G   
+      

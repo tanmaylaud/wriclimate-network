@@ -6,15 +6,15 @@ from networkx.readwrite.pajek import read_pajek
 
 @st.cache(allow_output_mutation=True)
 def get_directed_graph():
-    return nx.DiGraph(read_pajek("DirectedGraph.paj"))
+    return nx.DiGraph(read_pajek("assets/DirectedGraph.paj"))
 
 @st.cache(allow_output_mutation=True)
 def get_undirected_graph():
-    return nx.Graph(read_pajek("UndirectedGraph.paj"))
+    return nx.Graph(read_pajek("assets/UndirectedGraph.paj"))
 
 def normalise(df):
     return pd.DataFrame(df-df.min())/(df.max()-df.min())
-    
+
 @st.cache
 def get_degree_centrality(DG):
     dc = {k: v for k, v in sorted(nx.degree_centrality(DG).items(), key=lambda item: item[1],reverse=True)}
